@@ -11,9 +11,9 @@ int main(){
     printf("Please input message!\n");
     gets(message);
     do {
-        printf("Please input correct key!(correct means 16 bit hexadecimalf or 8 bit any char)\n");
+        printf("Please input correct key!(correct means 16 bit hexadecimalf or 8 bit any char or 7 bit any char)\n");
         gets(key);
-    } while(strlen(key) != 8 && strlen(key) != 16);
+    } while(strlen(key) != 8 && strlen(key) != 16 && strlen(key) != 7);
     printf("Plese input mode!(E for Encryption or D for Decrypt)\n");
     gets(mode);
     string solve = des(message, key, mode);

@@ -85,14 +85,40 @@ bs_64 H_to_bit64(char str[]) {
     return b;
 }
 
+bs_64 _7check_to_bit64(char str[]) {
+	bs_56 b;
+    int num = 0;
+    for(char i = 6; i >= 0; --i) {
+        int x = str[i];
+        do {
+            b[num++] = x % 2;
+            x /= 2;
+        }while(num %8 != 0);
+    }
+	num = 1;
+	bs_64 x;
+	int count = 0;
+	for(int i = 0; i < 56; ++i) {
+		x[i/7*8+i%7+1] = b[i];
+		if(b[i] == 1) count++;
+		if((i+1)%7 == 0) {
+			x[((i+1)/7-1)*8] = count%2;
+			count = 0;
+		}
+	}
+    return x;
+}
+
 void solvekey(char str[]) {
     int len = strlen(str);
     bs_64 k;
     if(len == 8) {
         k = _8char_to_bit64(str);
-    } else{
+    } else if (len == 16){
         k = H_to_bit64(str);
-    }
+    } else {
+		k = _7check_to_bit64(str);
+	}
 
     bs_56 k_ = getpc1(k);
     bs_28 c[17], d[17];
